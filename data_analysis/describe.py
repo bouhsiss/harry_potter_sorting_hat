@@ -7,11 +7,32 @@ BESSEL_CORRECTION = 1
 from utils.utils import load_data
 
 class DataDescriber:
+    """
+    A class used to describe numerical data from a pandas dataframe
+
+    Attributes
+    ----------
+    data : pandas.DataFrame
+        The data to be described
+    numerical_columns : pandas.Index
+        The columns of the data that are numerical types.
+    
+    Methods
+    -------
+    describe():
+        Generates descriptive statistics for the numerical columns of the data.
+    """
     def __init__(self, data):
+        """
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            The data to be described
+        """
         self.data = data
         self.numerical_columns = data.select_dtypes(include=['float64', 'int64']).columns
 
-    def _get_min_max(self, data):
+    def _get_min_max(self, data)
         min_val = data[0]
         max_val = data[0]
         for val in data:
@@ -47,6 +68,14 @@ class DataDescriber:
         return median
 
     def describe(self):
+        """
+        Generate descriptive statistics for the numerical columns of the data.
+
+        Returns
+        -------
+        pandas.DataFrame
+            A DataFrame containing the descriptive statistics for the numerical columns of the data.
+        """
         result = {}
         
         for column in self.numerical_columns:
@@ -84,3 +113,14 @@ description = describer.describe()
 print(description)
 print("========================================================")
 print(data.describe())
+
+
+# Output interpretation:
+# subjects like [herbology, transfiguration, potions, and care of magical creatures] show more consisten performance among students
+# subject like [arithmancy, astronomy, and muggle studies] show more variation in performance among students
+# negative mean scores [muggle studies, charms] may require further investigation to understand the scoring system or underlying reasons
+
+
+# TO DO: - data normalization due to the wide range of scores
+#        - feature selection to identify the most important features
+#        - handling missing values

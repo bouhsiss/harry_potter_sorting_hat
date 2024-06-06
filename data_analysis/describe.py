@@ -21,19 +21,30 @@ class DataDescriber:
                 max_val = val
         return min_val, max_val
 
-    def _get_percentiles(self, data):
+    def _percentile(self, data, percentile):
         data.sort()
-        n = len(data) - 1  # 0-indexed
-        q1 = data[n // 4]
-        q3 = data[3 * n // 4]
+        n = len(data) - 1 # 0-indexed
+        rank = (percentile / 100) * n
+        lower_rank = math.floor(rank)
+        upper_rank = math.ceil(rank)
+        if lower_rank == upper_rank:
+            return data[int(rank)]
+        else:
+            lower_value = data[lower_rank]
+            upper_value = data[upper_rank]
+            weight = rank - lower_rank
+            interpolated_value = lower_value * (1 - weight) + upper_value * weight
+            return interpolated_value
+        
+
+    def _get_percentiles(self, data):
+        q1 = self._percentile(data, 25)
+        q3 = self._percentile(data, 75)
         return q1, q3
 
     def _get_median(self, data):
-        data.sort()
-        n = len(data) - 1  # 0-indexed
-        if n % 2 == 0:
-            return (data[n // 2] + data[n // 2 + 1]) / 2
-        return data[n // 2]
+        median = self._percentile(data, 50)
+        return median
 
     def describe(self):
         result = {}

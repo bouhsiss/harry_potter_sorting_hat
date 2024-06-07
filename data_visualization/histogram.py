@@ -11,12 +11,21 @@ courses = ["Arithmancy", "Astronomy", "Herbology", "Defense Against the Dark Art
 # Set up the matplotlib figure
 plt.figure(figsize=(15,10))
 
+# define colors for each house
+house_colors = {
+    "Ravenclaw": "#0e1a40",
+    "Slytherin": "#1a472a",
+    "Gryffindor": "#740001",
+    "Hufflepuff": "#ecb939"
+
+}
+
 # Create box plots for each course
 for i, course in enumerate(courses, 1):
     plt.subplot(4, 4, i)
-    for house in data["Hogwarts House"].unique():
-        subset = data[data["Hogwarts House"] == house]
-        sns.histplot(subset[course], kde=False, bins=20, label= house, alpha=0.6)
+    data_list = [data[data["Hogwarts House"] == house][course].dropna() for house in data["Hogwarts House"].unique()]
+    colors = [house_colors[house] for house in data["Hogwarts House"].unique()]
+    plt.hist(data_list, bins=20, stacked=True, label=data["Hogwarts House"].unique(), color=colors, alpha=0.7)
     plt.title(f'{course} Scores by Hogwarts House')
     plt.xlabel('Score')
     plt.ylabel('Frequency')

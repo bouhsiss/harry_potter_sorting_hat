@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from utils.utils import load_data
 
+# creating a histogram plot answering the question:
+# "What is the most homogenous distribution score across all four houses?"
+
 # Load the data
 data = load_data("data/raw/datasets/dataset_train.csv")
 

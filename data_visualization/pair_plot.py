@@ -23,7 +23,12 @@ house_colors = {
 }
 
 
-# Create the pair plot
+# Create the pair plot and distinguish the houses (target variable) by color
 sns.pairplot(data, vars=courses, hue='Hogwarts House', palette=house_colors, diag_kind='kde')
 
 plt.show()
+
+# interpretation
+# TO BE DROPPED (redundant features) : -- defense against the dark arts and astronomy -- have a strong negative correlation which means they're redundant features so we can drop one of them
+# TO BE KEPT (discrimantive features) : -- astronomy vs defense against the dark arts, astronomy vs ancient runes, astronomy vs charms, herblogy vs defense against the dark arts, herobolgy vs ancient runes, defense against the dark arts vs ancient runes -- these features have a clear separation between the houses which makes them discriminative features
+# TO BE CONSIDERED (similar clusters) : -- history of magic and transfiguration -- have a similar pattern of clusters with other features which might suggest a redundancy or a similarity in the data

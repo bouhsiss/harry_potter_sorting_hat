@@ -34,31 +34,7 @@ This project is part of the 42 network cursus (dslr). In this project, we will e
 
 ```
 
-### Descrition of Folders and Files
 
-- **`environment.yml`**: Defines the Conda environment with all dependencies.
-- **`data/`**: Contains datasets.
-  - **`raw/`**: Stores raw, unprocessed data files.
-    - **`datasets/`**: Contains training and testing datasets.
-    - **`datasets.tgz`**: Compressed raw data files.
-  - **`processed/`**: Stores cleaned and processed data files.
-- **`data_analysis/`**: Contains scripts for data analysis.
-  - **`data_analysis.py`**: Functions for exploratory data analysis.
-- **`data_preprocessing/`**: Contains scripts for data cleaning and preprocessing.
-  - **`data_preprocessing.py`**: Functions for data preprocessing.
-- **`data_visualization/`**: Contains scripts for data visualization.
-  - **`data_visualization.py`**: Functions for creating visualizations.
-- **`logistic_regression/`**: Contains scripts for logistic regression model.
-  - **`logistic_regression.py`**: Implementation of logistic regression, including training, evaluation, and prediction.
-- **`scripts/`**: Contains runnable scripts for different stages of the project.
-  - **`run_data_preprocessing.py`**: Script to execute data preprocessing.
-  - **`run_data_analysis.py`**: Script to execute data analysis.
-  - **`run_data_visualization.py`**: Script to generate visualizations.
-  - **`run_logistic_regression_training.py`**: Script to train the logistic regression model.
-  - **`run_logistic_regression_evaluation.py`**: Script to evaluate the logistic regression model.
-  - **`run_logistic_regression_prediction.py`**: Script to make predictions using the logistic regression model.
-- **`utils/`**: Contains utility scripts shared across modules.
-  - **`utils.py`**: Utility functions.
 
 ## Aim of the Project
 
@@ -67,4 +43,20 @@ This project is part of the 42 network cursus (dslr). In this project, we will e
 - Train a logistic regression model to solve a classification problem.
 - Create a machine learning toolkit for data exploration and model training.
 
-By following this project structure, you will be able to efficiently navigate through the various stages of data preprocessing, analysis, visualization, and model implementation.
+## Data Visualization and Interpratation
+
+### Homogenity of Course Scores Across Hogwarts Houses
+One of the key steps in our data analysis was to determine the most homogenous distribution of scores across all four houses. To achieve this, we created histograms for each course, segmented by house. Below is a screenshot of the histograms generated:
+![Course Scores by Hogwarts House](assets/courses_Scores_by_hogwarts_house.png)
+
+#### Interpretation 
+
+To identify the most homogenous distribution score, we considered the following factors across all four houses:
+- **Shape Consistency**: The shape of the distribution is consistent across all houses.
+- **Range and Spread**: The range and spread of scores are similar across houses.
+- **Central Tendency**: The mean and median are similar across houses.
+- **Overlapping Areas**: More overlap indicates more similarity in distributions.
+
+After analyzing the plots, we observed that two courses, **Arithmancy** and **Care of Magical Creatures**, exhibit significant homogeneity. However, **Care of Magical Creatures** shows more homogeneity compared to **Arithmancy**. This is indicated by its narrow range, aligned peaks, and a high degree of overlap, suggesting that the score distributions are more similar across houses. In contrast, **Arithmancy** has a wider range and spread, along with some outliers, indicating less homogeneity.
+
+By examining these visualizations, we gain valuable insights into the distribution of scores across different houses, which helps in better understanding the data and refining our approach for the classification problem.

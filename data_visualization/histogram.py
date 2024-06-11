@@ -29,7 +29,7 @@ for i, course in enumerate(courses, 1):
     data_list = [data[data["Hogwarts House"] == house][course].dropna() for house in data["Hogwarts House"].unique()]
     colors = [house_colors[house] for house in data["Hogwarts House"].unique()]
     plt.hist(data_list, bins=20, stacked=True, label=data["Hogwarts House"].unique(), color=colors, alpha=0.7)
-    plt.title(f'{course} Scores by Hogwarts House')
+    plt.title(f'{course}')
     plt.xlabel('Score')
     plt.ylabel('Frequency')
     plt.legend()

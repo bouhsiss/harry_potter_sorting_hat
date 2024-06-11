@@ -58,5 +58,3 @@ To identify the most homogenous distribution score, we considered the following 
 - **Overlapping Areas**: More overlap indicates more similarity in distributions.
 
 After analyzing the plots, we observed that two courses, **Arithmancy** and **Care of Magical Creatures**, exhibit significant homogeneity. However, **Care of Magical Creatures** shows more homogeneity compared to **Arithmancy**. This is indicated by its narrow range, aligned peaks, and a high degree of overlap, suggesting that the score distributions are more similar across houses. In contrast, **Arithmancy** has a wider range and spread, along with some outliers, indicating less homogeneity.
-
-By examining these visualizations, we gain valuable insights into the distribution of scores across different houses, which helps in better understanding the data and refining our approach for the classification problem.

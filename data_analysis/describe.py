@@ -32,7 +32,7 @@ class DataDescriber:
         self.data = data
         self.numerical_columns = data.select_dtypes(include=['float64', 'int64']).columns
 
-    def _get_min_max(self, data)
+    def _get_min_max(self, data):
         min_val = data[0]
         max_val = data[0]
         for val in data:
@@ -102,17 +102,19 @@ class DataDescriber:
         df_result = pd.DataFrame(result, index=['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max'])
         return df_result
 
-# Load the data
-data = load_data("data/raw/datasets/dataset_train.csv")
 
-# Create an instance of DataDescriber
-describer = DataDescriber(data)
+if __name__ == '__main__':
+    # Load the data
+    data = load_data("data/raw/datasets/dataset_train.csv")
 
-# Get the description
-description = describer.describe()
-print(description)
-print("========================================================")
-print(data.describe())
+    # Create an instance of DataDescriber
+    describer = DataDescriber(data)
+
+    # Get the description
+    description = describer.describe()
+    print(description)
+    print("========================================================")
+    print(data.describe())
 
 
 # Output interpretation:

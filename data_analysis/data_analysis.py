@@ -15,7 +15,17 @@ print(data.head())
 # the 'hogwarts house' column is categorical and represents the house to which the student belongs. this is the target column that we want to predict.
 # the 'first name and 'last name' columns are categorical and might not be useful for a the ML model but can be used to identify the students. TO DO : we can drop them.
 # the 'best hand' column is categorical and represents the hand that the student uses the most. this column might be useful for the ML model.
-# some score columns have negative values, TO DO : we need to check if the negative values are valid and decide how to handle the missing values.
+# some score columns have negative values.
+
+# count how many negative values the dataframe has to know how they should be treated
+print("================================================= negative values =================================================")
+numerical_cols = ["Arithmancy", "Astronomy", "Herbology", "Defense Against the Dark Arts", "Divination", "Muggle Studies", "Ancient Runes", "History of Magic", "Transfiguration", "Potions", "Care of Magical Creatures", "Charms", "Flying"]
+negative_values_count = (data[numerical_cols] < 0).sum()
+print(negative_values_count)
+total_negative_values = negative_values_count.sum()
+print(f"total negative values: {total_negative_values}")
+
+# Given that the number of negative values is very highm, especially in the Charms column since all its values are negative, we can assume that these negative values are not errors but rather have a specific meaning.
 
 
 

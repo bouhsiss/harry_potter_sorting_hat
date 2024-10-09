@@ -52,8 +52,18 @@ class DataPreprocessing:
         """
         Main method to preprocess the data.
         """
+
+        # split the birthday column
+        self.data["Birthday"] = pd.to_datetime(self.data["Birthday"])
+        self.data["Birthday_year"] = self.data["Birthday"].dt.year
+        self.data["Birthday_month"] = self.data["Birthday"].dt.month
+        self.data["Birthday_day"] = self.data["Birthday"].dt.day
+
+        # add the birthday columns to the numerical columns
+        self.numerical_cols += ["Birthday_year", "Birthday_month", "Birthday_day"]
+
         # drop non-necessary columns
-        self.drop_columns(["Index", "First Name", "Last Name"])
+        self.drop_columns(["Index", "First Name", "Last Name", "Birthday"])
 
         # fill missing values
         self.fill_missing_values()

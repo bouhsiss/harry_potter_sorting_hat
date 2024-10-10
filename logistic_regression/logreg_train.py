@@ -3,10 +3,11 @@ import pickle
 from data_preprocessing.data_preprocessing import DataPreprocessing
 import json
 from sklearn.metrics import accuracy_score
+import sys
 
 
 # a multi-class logistic regression model class
-class LogisticRegressionsOvR:
+class LogisticRegressionOvR:
     def __init__(self, learning_rate=0.1, n_iterations= 5000, batch_size=32):
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations
@@ -14,6 +15,7 @@ class LogisticRegressionsOvR:
         self.weights = None
         self.bias = None
         self.classes = None
+        self.decoded_classes = None
 
     def sigmoid(self, z):
         return 1 / (1 + np.exp(-z))
@@ -86,42 +88,27 @@ class LogisticRegressionsOvR:
         model_data = {
             "weights": self.weights.tolist(),
             "bias": self.bias.tolist(),
-            "classes": self.classes.tolist()
+            "classes": self.decoded_classes.tolist()
         }
+
         with open(weights_file, "w") as file:
             json.dump(model_data, file)
-    # need to remove the predict function and create a new class for prediction
-    def predict(self, X, y):
-        n_samples = X.shape[0]
-        n_classes = len(self.classes)
-        y_pred = np.zeros((n_samples, n_classes))
 
-        for class_idx in range(n_classes):
-            z = np.dot(X, self.weights[class_idx]) + self.bias[class_idx]
-            y_pred[:, class_idx] = self.sigmoid(z)
-        
-        y_pred = np.argmax(y_pred, axis=1)
-
-        accuracy = accuracy_score(y, y_pred)
-        print(f"Accuracy: {accuracy}")
-
-        return y_pred
         
 
-def main(train_file, weights_file):
-    
+def main():
+    train_file = sys.argv[1]
+    weights_file = "logistic_regression_weights.txt"
     preprocessor = DataPreprocessing(train_file)
     preprocessor.preprocess()
     X_train, X_test, y_train, y_test = preprocessor.split_data()
     
-    model = LogisticRegressionsOvR()
+    model = LogisticRegressionOvR()
     # need to split the fit function
     model.fit(X_train, y_train)
     
-
-    # model.save_weights(weights_file)
-    y_test = y_test.to_numpy()
-    model.predict(X_test, y_test)
+    model.decoded_classes = preprocessor.decode_categorical_data(model.classes)
+    model.save_weights(weights_file)
 
 if __name__ == "__main__":
-    main("data/raw/datasets/dataset_train.csv", "logistic_regression_weights.txt")
+    main()

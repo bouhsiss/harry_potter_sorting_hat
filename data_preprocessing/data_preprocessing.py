@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
+import joblib
 
 class DataPreprocessing:
     def __init__(self, file_path):
@@ -13,6 +14,12 @@ class DataPreprocessing:
         self.target_col = "Hogwarts House"
         self.scaler = MinMaxScaler()
         self.le = LabelEncoder()
+
+    def load_scaler(self, scaler_path):
+        self.scaler = joblib.load(scaler_path)
+    
+    def save_scaler(self, scaler_path):
+        joblib.dump(self.scaler, scaler_path)
 
     def drop_columns(self, columns):
         """
@@ -31,6 +38,7 @@ class DataPreprocessing:
         Scales the numerical columns using MinMaxScaler.
         """
         self.data[self.numerical_cols] = self.scaler.fit_transform(self.data[self.numerical_cols])
+        self.save_scaler("scaler.pkl")
 
     def encode_categorical_data(self):
         """
@@ -38,7 +46,10 @@ class DataPreprocessing:
         """
         self.data["Best Hand"] = self.data["Best Hand"].apply(lambda x: 1 if x == "Right" else 0)
         self.data["Hogwarts House"] = self.le.fit_transform(self.data["Hogwarts House"])
-    
+
+    def decode_categorical_data(self, encoded_data):
+        return self.le.inverse_transform(encoded_data)
+
     def split_data(self, test_size=0.2, random_state=42):
         """
         Splits the data into training and testing sets.
@@ -73,6 +84,9 @@ class DataPreprocessing:
 
         # encode categorical data
         self.encode_categorical_data()
+
+        # return the preprocessed data
+        return self.data
 
     def split_data(self, test_size=0.2, random_state=42):
         """

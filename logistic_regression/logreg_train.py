@@ -99,7 +99,7 @@ class LogisticRegressionOvR:
 def main():
     # check if the correct number of arguments are provided
     if len(sys.argv) != 2:
-        print("Usage: python logreg_train.py <train_file>")
+        print("Usage: python logreg_train.py <dataset_file>")
         sys.exit(1)
     # load the training data and preprocess it
     train_file = sys.argv[1]
@@ -116,6 +116,9 @@ def main():
     # save the model weights, biases and classes to a file
     model.decoded_classes = preprocessor.decode_categorical_data(model.classes)
     model.save_weights(weights_file)
+
+
+
 
 if __name__ == "__main__":
     main()

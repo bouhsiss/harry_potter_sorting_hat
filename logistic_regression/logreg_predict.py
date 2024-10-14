@@ -35,6 +35,7 @@ def predict(X, weights, biases, classes):
     # convert y_pred to a dataframe
     y_pred = pd.DataFrame(y_pred, columns=["Hogwarts House"])
     y_pred.to_csv("houses.csv")
+    return y_pred
 
 def main():
     test_file = sys.argv[1]

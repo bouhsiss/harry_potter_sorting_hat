@@ -4,11 +4,12 @@ from data_preprocessing.data_preprocessing import DataPreprocessing
 import json
 from sklearn.metrics import accuracy_score
 import sys
+from logistic_regression.logreg_predict import predict
 
 
 # a multi-class logistic regression model class
 class LogisticRegressionOvR:
-    def __init__(self, learning_rate=0.1, n_iterations= 5000, batch_size=32):
+    def __init__(self, learning_rate=0.1, n_iterations= 1000, batch_size=32):
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations
         self.batch_size = batch_size
@@ -24,10 +25,6 @@ class LogisticRegressionOvR:
         self.weights = np.zeros((n_classes, n_features))
         self.bias = np.zeros(n_classes)
     
-    def compute_loss(self, y_true, y_pred):
-        m = y_true.shape[0]
-        loss = -(1/m) * np.sum(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
-        return loss
     
     def create_mini_batches(self, X, y):
         m = X.shape[0]
@@ -79,8 +76,11 @@ class LogisticRegressionOvR:
         for class_idx in range(n_classes):
             y_class = np.where(y == self.classes[class_idx], 1, 0)
 
-            for _ in range(self.n_iterations):
+            for epoch in range(self.n_iterations):
                 self.mini_batch_gradient_descent(X, y_class, class_idx)
+            # compute and print loss for this class
+            # loss = self.compute_loss(X, y)
+            # print(f"Epoch {epoch+1}/{self.n_iterations}, Loss: {loss:.4f} for class : {self.classes[class_idx]}")
 
     
     def save_weights(self, weights_file):
@@ -94,6 +94,27 @@ class LogisticRegressionOvR:
         with open(weights_file, "w") as file:
             json.dump(model_data, file)
 
+    def compute_loss(self, X, y):
+        m = X.shape[0]
+        n_classes = len(self.classes)
+        total_loss = 0
+        
+        for class_idx in range(n_classes):
+            y_true = np.where(y == self.classes[class_idx], 1, 0)
+            z = np.dot(X, self.weights[class_idx]) + self.bias[class_idx]
+            y_pred = self.sigmoid(z)
+            
+            # Clip predictions to avoid log(0)
+            y_pred = np.clip(y_pred, 1e-15, 1 - 1e-15)
+            
+            # Compute binary cross-entropy loss for this class
+            class_loss = -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+            total_loss += class_loss
+        
+        # Average loss across all classes
+        avg_loss = total_loss / n_classes
+        return avg_loss
+    
         
 
 def main():
@@ -113,11 +134,14 @@ def main():
     model = LogisticRegressionOvR()
     model.fit(X_train, y_train)
     
+
     # save the model weights, biases and classes to a file
     model.decoded_classes = preprocessor.decode_categorical_data(model.classes)
     model.save_weights(weights_file)
 
-
+    # compute average loss for all classes 
+    loss = model.compute_loss(X_train, y_train)
+    print(f"Average loss: {loss:.4f}")
 
 
 if __name__ == "__main__":

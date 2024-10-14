@@ -27,8 +27,10 @@ def main():
 
     y_pred = predict(X_test, weights, biases, classes)
 
+    # replace the y_pred with the decoded classes
     y_test = classes[y_test]
 
+    # evaluate the model
     evaluate(y_test, y_pred)
 
 if __name__ == "__main__":

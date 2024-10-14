@@ -38,15 +38,23 @@ def predict(X, weights, biases, classes):
     return y_pred
 
 def main():
-    test_file = sys.argv[1]
-
+    # check if the correct number of arguments is provided 
+    if(len(sys.argv) != 3):
+        print("Usage : python logreg__predict.py <test_file> <weights_file>")
+        sys.exit(1)
+    
+    # load the weights file
     weights_file = sys.argv[2]
     weights, biases, classes = load_weights(weights_file)
+    
+    # load the test file and the scaler and preprocess the data
+    test_file = sys.argv[1]
     preprocessor = DataPreprocessing(test_file)
     preprocessor.load_scaler("scaler.pkl")
     test_data = preprocessor.preprocess()
     test_data = test_data.drop(columns=["Hogwarts House"])
 
+    # run the predictions
     predict(test_data, weights, biases, classes)
 
 

@@ -97,7 +97,7 @@ class LogisticRegressionOvR:
         
 
 def main():
-    # check if the correct number of arguments are provided
+    # check if the correct number of arguments is provided
     if len(sys.argv) != 2:
         print("Usage: python logreg_train.py <dataset_file>")
         sys.exit(1)

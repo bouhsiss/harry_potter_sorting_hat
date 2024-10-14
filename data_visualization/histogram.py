@@ -1,41 +1,39 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 from utils.utils import load_data
+import sys
 
-# creating a histogram plot answering the question:
-# "What is the most homogenous distribution score across all four houses?"
 
-# Load the data
-data = load_data("data/raw/datasets/dataset_train.csv")
 
-# List of courses to plot
-courses = ["Arithmancy", "Astronomy", "Herbology", "Defense Against the Dark Arts", "Divination", "Muggle Studies", "Ancient Runes", "History of Magic", "Transfiguration", "Potions", "Care of Magical Creatures", "Charms", "Flying"]
+def histogram(data):
+    # List of courses to plot
+    courses = ["Arithmancy", "Astronomy", "Herbology", "Defense Against the Dark Arts", "Divination", "Muggle Studies", "Ancient Runes", "History of Magic", "Transfiguration", "Potions", "Care of Magical Creatures", "Charms", "Flying"]
 
-# Set up the matplotlib figure
-plt.figure(figsize=(15,10))
+    # Set up the matplotlib figure
+    plt.figure(figsize=(15,10))
 
-# define colors for each house
-house_colors = {
-    "Ravenclaw": "#0e1a40",
-    "Slytherin": "#1a472a",
-    "Gryffindor": "#740001",
-    "Hufflepuff": "#ecb939"
+    # define colors for each house
+    house_colors = {
+        "Ravenclaw": "#0e1a40",
+        "Slytherin": "#1a472a",
+        "Gryffindor": "#740001",
+        "Hufflepuff": "#ecb939"
 
-}
+    }
 
-# Create box plots for each course
-for i, course in enumerate(courses, 1):
-    plt.subplot(4, 4, i)
-    data_list = [data[data["Hogwarts House"] == house][course].dropna() for house in data["Hogwarts House"].unique()]
-    colors = [house_colors[house] for house in data["Hogwarts House"].unique()]
-    plt.hist(data_list, bins=20, stacked=True, label=data["Hogwarts House"].unique(), color=colors, alpha=0.7)
-    plt.title(f'{course}')
-    plt.xlabel('Score')
-    plt.ylabel('Frequency')
-    plt.legend()
+    # Create box plots for each course
+    for i, course in enumerate(courses, 1):
+        plt.subplot(4, 4, i)
+        data_list = [data[data["Hogwarts House"] == house][course].dropna() for house in data["Hogwarts House"].unique()]
+        colors = [house_colors[house] for house in data["Hogwarts House"].unique()]
+        plt.hist(data_list, bins=20, stacked=True, label=data["Hogwarts House"].unique(), color=colors, alpha=0.7)
+        plt.title(f'{course}')
+        plt.xlabel('Score')
+        plt.ylabel('Frequency')
+        plt.legend()
 
-plt.tight_layout()
-plt.show()
+    plt.tight_layout()
+    plt.show()
 
 # interpretation
 # to identify the most homogenous distribution score we should take in consideration these factors among all four houses:
@@ -47,3 +45,19 @@ plt.show()
 # -- Arithmancy and care of magical creatures -- 
 # but there are some differences, care of magical creatures shows more homogeneity. the narrow range, aligned peaks
 # and high degree of overlap suggest that the score distributions are more similar across the houses compared to arithmancy which has a wider range and spread and some outliers 
+
+
+def main():
+    # Load the data
+    data = load_data("data/datasets/dataset_train.csv")
+    
+    # creating a histogram plot answering the question:
+    # "What is the most homogenous distribution score across all four houses?"
+    histogram(data)
+
+if __name__ == "__main__":
+    try :
+        main()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        sys.exit(1)

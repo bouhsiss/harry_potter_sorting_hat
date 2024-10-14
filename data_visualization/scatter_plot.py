@@ -2,45 +2,42 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from itertools import combinations
 from utils.utils import load_data
+import sys
 
-# creating a scatter plot answering the question:
-# "what are the two features that are similar ?"
 
-# Load the data
-data = load_data("data/raw/datasets/dataset_train.csv")
+def scatter_plot(data):
+    # List of courses to plot
+    courses = ["Arithmancy", "Astronomy", "Herbology", "Defense Against the Dark Arts", "Divination", "Muggle Studies", "Ancient Runes", "History of Magic", "Transfiguration", "Potions", "Care of Magical Creatures", "Charms", "Flying"]
 
-# List of courses to plot
-courses = ["Arithmancy", "Astronomy", "Herbology", "Defense Against the Dark Arts", "Divination", "Muggle Studies", "Ancient Runes", "History of Magic", "Transfiguration", "Potions", "Care of Magical Creatures", "Charms", "Flying"]
+    # Generate all combinations of course pairs
+    course_pairs = list(combinations(courses, 2))
 
-# Generate all combinations of course pairs
-course_pairs = list(combinations(courses, 2))
+    # Set up the plotting
+    num_plots = len(course_pairs)
+    cols = 12
+    rows = (num_plots // cols) + (num_plots % cols > 0)
 
-# Set up the plotting
-num_plots = len(course_pairs)
-cols = 12
-rows = (num_plots // cols) + (num_plots % cols > 0)
+    plt.figure(figsize=(3*cols, 4 * rows))
 
-plt.figure(figsize=(3*cols, 4 * rows))
+    # define colors for each house
+    house_colors = {
+        "Ravenclaw": "#0e1a40",
+        "Slytherin": "#1a472a",
+        "Gryffindor": "#740001",
+        "Hufflepuff": "#ecb939"
 
-# define colors for each house
-house_colors = {
-    "Ravenclaw": "#0e1a40",
-    "Slytherin": "#1a472a",
-    "Gryffindor": "#740001",
-    "Hufflepuff": "#ecb939"
+    }
 
-}
+    # Loop through each combination and create scatter plots
+    for i, (course1, course2) in enumerate(course_pairs):
+        plt.subplot(rows, cols, i + 1)
+        sns.scatterplot(x=data[course1], y=data[course2], hue=data['Hogwarts House'], palette=house_colors, legend=False)
+        plt.xlabel(course1)
+        plt.ylabel(course2)
+        plt.tight_layout()
 
-# Loop through each combination and create scatter plots
-for i, (course1, course2) in enumerate(course_pairs):
-    plt.subplot(rows, cols, i + 1)
-    sns.scatterplot(x=data[course1], y=data[course2], hue=data['Hogwarts House'], palette=house_colors, legend=False)
-    plt.xlabel(course1)
-    plt.ylabel(course2)
     plt.tight_layout()
-
-plt.tight_layout()
-plt.show()
+    plt.show()
 
 
 # interpretation
@@ -53,3 +50,19 @@ plt.show()
 
 # after plotting our data we observe that there are two features that are similar :
 # Defense Against the Dark Arts and Astronomy, they form a downward sloping line with a strong negative correlation, which means that as one variable increases the other decreases
+
+
+def main():
+    # Load the data
+    data = load_data("data/datasets/dataset_train.csv")
+    
+    # creating a scatter plot that will answer the question:
+    # "what are the two features that are similar ?"
+    scatter_plot(data)
+
+if __name__ == "__main__":
+    try :
+        main()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        sys.exit(1)

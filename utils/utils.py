@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 
 
 def load_data(path: str) -> pd.DataFrame:
@@ -15,7 +16,8 @@ pandas DataFrame. return None if an error occurs.
         assert isinstance(path, str), "Path must be a string"
         dataset = pd.read_csv(path)
         return dataset
-    except (FileNotFoundError, pd.errors.ParserError, AssertionError) as e:
+    except (FileNotFoundError, pd.errors.ParserError, AssertionError, PermissionError, pd.errors.EmptyDataError) as e:
         print("Error loading dataset: {0}".format(e))
-        return None
+        sys.exit(1)
+        
 

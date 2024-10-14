@@ -97,16 +97,23 @@ class LogisticRegressionOvR:
         
 
 def main():
+    # check if the correct number of arguments are provided
+    if len(sys.argv) != 2:
+        print("Usage: python logreg_train.py <train_file>")
+        sys.exit(1)
+    # load the training data and preprocess it
     train_file = sys.argv[1]
     weights_file = "logistic_regression_weights.txt"
-    preprocessor = DataPreprocessing(train_file)
+    preprocessor = DataPreprocessing(train_file) 
     preprocessor.preprocess()
-    X_train, X_test, y_train, y_test = preprocessor.split_data()
-    
+    # split the data into training and testing sets
+    X_train, _, y_train, _ = preprocessor.split_data()
+
+    # train the logistic regression model
     model = LogisticRegressionOvR()
-    # need to split the fit function
     model.fit(X_train, y_train)
     
+    # save the model weights, biases and classes to a file
     model.decoded_classes = preprocessor.decode_categorical_data(model.classes)
     model.save_weights(weights_file)
 

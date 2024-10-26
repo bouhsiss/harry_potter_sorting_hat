@@ -53,8 +53,8 @@ class DataDescriber:
         else:
             lower_value = data[lower_rank]
             upper_value = data[upper_rank]
-            weight = rank - lower_rank
-            interpolated_value = lower_value * (1 - weight) + upper_value * weight
+            fraction = rank - lower_rank
+            interpolated_value = lower_value + (upper_value - lower_value) * fraction
             return interpolated_value
         
 
@@ -105,7 +105,7 @@ class DataDescriber:
 
 if __name__ == '__main__':
     # Load the data
-    data = load_data("data/raw/datasets/dataset_train.csv")
+    data = load_data("data/datasets/dataset_train.csv")
 
     # Create an instance of DataDescriber
     describer = DataDescriber(data)

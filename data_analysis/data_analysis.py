@@ -2,7 +2,7 @@ import pandas as pd
 from utils.utils import load_data
 
 
-data  = load_data("data/raw/datasets/dataset_train.csv")
+data  = load_data("data/datasets/dataset_train.csv")
 
 
 # print the first 5 rows of the dataset

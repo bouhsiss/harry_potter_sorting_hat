@@ -124,7 +124,7 @@ def main():
         sys.exit(1)
     # load the training data and preprocess it
     train_file = sys.argv[1]
-    weights_file = "logistic_regression_weights.txt"
+    weights_file = "logistic_regression/logistic_regression_weights.txt"
     preprocessor = DataPreprocessing(train_file) 
     preprocessor.preprocess()
     # split the data into training and testing sets

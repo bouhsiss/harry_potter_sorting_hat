@@ -7,31 +7,26 @@ This project is part of the 42 network cursus (dslr). In this project, we will e
 ```
 .
 |____data_analysis
+| |____data_analysis.py
+| |____describe.py
 |____data_preprocessing
 | |____data_preprocessing.py
-|____environment.yml
 |____utils
 | |____utils.py
-|____scripts
-| |____run_data_preprocessing.py
-| |____run_data_analysis.py
-| |____run_logistic_regression_prediction.py
-| |____run_logistic_regression_training.py
-| |____run_logistic_regression_evaluation.py
-| |____run_data_visualization.py
 |____README.md
 |____data_visualization
-| |____data_visualization.py
+| |____histogram.py
+| |____pair_plot.py
+| |____scatter_plot.py
 |____logistic_regression
-| |____logistic_regression.py
+| |____logreg_train.py
+| |____logreg_evaluate.py
+| |____logreg_predict.py
+| |____logistic_regression_weights.txt
 |____data
-| |____processed
-| |____raw
-| | |____datasets
-| | | |____dataset_train.csv
-| | | |____dataset_test.csv
-| | |____datasets.tgz
-
+| |____datasets
+| | |____dataset_train.csv
+| | |____dataset_test.csv
 ```
 
 
@@ -103,3 +98,13 @@ Pair plots are useful for identifying relationships and correlations between dif
 
 Based on these observations, we will focus on the discriminative features and drop redundant ones to improve the performance and efficiency of our logistic regression model. This careful selection helps in creating a more accurate and interpretable model.
 
+## Logistic Regression
+In the `logistic_regression` folder, we have implemented the core functionalities for training, evaluating, and predicting using the logistic regression model:
+
+- **Training**: The `logreg_train.py` script is responsible for training the logistic regression model on the processed dataset. We utilized an One-vs-Rest (OvR) logistic regression approach, which allows us to handle multi-class classification problems effectively. The model is trained using mini-batch gradient descent, which helps in optimizing the weights efficiently by processing small batches of data at a time. This method not only speeds up the training process but also helps in achieving better convergence.
+
+- **Weight Application**: After training, we apply the learned weights to the input features. For each class, we compute the predicted probabilities, and to determine the final prediction, we use the `argmax` function. This function selects the class with the highest predicted probability, ensuring that we choose the best prediction based on the model's output.
+
+- **Evaluation**: The `logreg_evaluate.py` script evaluates the performance of the trained model using accuracy. This helps in understanding how well the model performs on unseen data.
+
+- **Prediction**: The `logreg_predict.py` script is used to make predictions on new data using the trained model. It loads the model weights and applies them to the input features to generate predictions.

@@ -118,8 +118,6 @@ if __name__ == '__main__':
 
 
 # Output interpretation:
-# subjects like [herbology, transfiguration, potions, and care of magical creatures] show more consisten performance among students
-# subject like [arithmancy, astronomy, and muggle studies] show more variation in performance among students
 # negative mean scores [muggle studies, charms] may require further investigation to understand the scoring system or underlying reasons
 
 

@@ -1,0 +1,39 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-arm64
+# created-by: conda 24.9.2
+bzip2=1.0.8=h80987f9_6
+ca-certificates=2024.3.11=hca03da5_0
+contourpy=1.2.1=pypi_0
+cycler=0.12.1=pypi_0
+expat=2.6.2=h313beb8_0
+fonttools=4.53.0=pypi_0
+joblib=1.4.2=pypi_0
+kiwisolver=1.4.5=pypi_0
+libcxx=14.0.6=h848a8c0_0
+libffi=3.4.4=hca03da5_1
+matplotlib=3.9.0=pypi_0
+ncurses=6.4=h313beb8_0
+numpy=1.26.4=pypi_0
+openssl=3.0.13=h1a28f6b_2
+packaging=24.0=pypi_0
+pandas=2.2.2=pypi_0
+pillow=10.3.0=pypi_0
+pip=24.0=py312hca03da5_0
+pyparsing=3.1.2=pypi_0
+python=3.12.3=h99e199e_1
+python-dateutil=2.9.0.post0=pypi_0
+pytz=2024.1=pypi_0
+readline=8.2=h1a28f6b_0
+scikit-learn=1.5.1=pypi_0
+scipy=1.14.0=pypi_0
+seaborn=0.13.2=pypi_0
+setuptools=69.5.1=py312hca03da5_0
+six=1.16.0=pypi_0
+sqlite=3.45.3=h80987f9_0
+threadpoolctl=3.5.0=pypi_0
+tk=8.6.14=h6ba3021_0
+tzdata=2024.1=pypi_0
+wheel=0.43.0=py312hca03da5_0
+xz=5.4.6=h80987f9_1
+zlib=1.2.13=h18a0788_1
